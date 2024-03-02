@@ -11,6 +11,19 @@ public class Dinglemouse {
 
         }
 
+        if ( queues[1].length > 0) {
+
+            if (queues[1][0] == 2) {
+                return new int[]{0, 1, 2, 0};
+            }
+
+            if (queues[1][0] == 3) {
+                return new int[]{0, 1, 3, 0};
+            }
+
+
+        }
+
         return new int[]{0};
 
     }
