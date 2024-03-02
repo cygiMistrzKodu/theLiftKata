@@ -189,4 +189,21 @@ public class DinglemouseTest {
 
     }
 
+    @Test
+    void OnePeopleGetIn1FloorAndGoTo5Floor() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[]{5},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0]
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 1);
+        assertArrayEquals(new int[]{0,1,5,0}, result);
+
+    }
+
 }
