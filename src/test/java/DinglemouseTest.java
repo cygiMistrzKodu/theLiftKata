@@ -1,6 +1,7 @@
 //import org.junit.Test;
 //import static org.junit.Assert.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -379,6 +380,74 @@ public class DinglemouseTest {
 
         final int[] result = Dinglemouse.theLift(queues, 1);
         assertArrayEquals(new int[]{0, 5, 0}, result);
+
+    }
+
+    @Test @Disabled
+    void twoPeopleWantToGoFromGroundTo1Floor() {
+
+        final int[][] queues = {
+                new int[]{1, 1},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{0},
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 2);
+        assertArrayEquals(new int[]{0, 1, 0}, result);
+
+    }
+
+    @Test @Disabled
+    void twoPeopleWantToGoFrom3FlorToGround() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{0, 0},
+                new int[0],
+                new int[]{0},
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 2);
+        assertArrayEquals(new int[]{0, 3, 0}, result);
+
+    }
+
+    @Test
+    void OnePeopleWantTo1FloorSecondPeopleWantToGo2FloorFromGround() {
+
+        final int[][] queues = {
+                new int[]{1, 2},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 2);
+        assertArrayEquals(new int[]{0, 1, 2, 0}, result);
+
+    }
+
+    @Test
+    void OnePeopleWantTo4FloorSecondPeopleWantToGo5FromGround() {
+
+        final int[][] queues = {
+                new int[]{4, 5},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 2);
+        assertArrayEquals(new int[]{0, 4, 5, 0}, result);
 
     }
 
