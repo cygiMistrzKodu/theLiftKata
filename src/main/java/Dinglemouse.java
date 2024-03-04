@@ -11,7 +11,7 @@ public class Dinglemouse {
         }
 
 
-        for (int floorIndex = 1; floorIndex <= queues.length; floorIndex++) {
+        for (int floorIndex = 0; floorIndex <= queues.length; floorIndex++) {
 
             if (queues.length > 2 && queues[floorIndex].length > 0) {
 
