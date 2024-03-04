@@ -365,21 +365,21 @@ public class DinglemouseTest {
 
     }
 
-//    @Test
-//    void OnePeopleWantGotFrom5FloorToGround() {
-//
-//        final int[][] queues = {
-//                new int[0],
-//                new int[0],
-//                new int[0],
-//                new int[0],
-//                new int[0],
-//                new int[]{0},
-//        };
-//
-//        final int[] result = Dinglemouse.theLift(queues, 1);
-//        assertArrayEquals(new int[]{0, 5, 0}, result);
-//
-//    }
+    @Test
+    void OnePeopleWantGotFrom5FloorToGround() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{0},
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 1);
+        assertArrayEquals(new int[]{0, 5, 0}, result);
+
+    }
 
 }

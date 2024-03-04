@@ -10,29 +10,15 @@ public class Dinglemouse {
 
         }
 
-        if (queues.length > 2 && queues[2].length > 0) {
+        for (int florIndex = 1; florIndex < queues.length; florIndex++) {
 
-            int floorToGo = queues[2][0];
-            if (floorToGo == 0) {
-                return new int[]{0, 2, 0};
-            }
+            if (queues.length > 2 && queues[florIndex].length > 0) {
 
-        }
+                int floorToGo = queues[florIndex][0];
+                if ( floorToGo == 0 ) {
+                    return new int[]{0, florIndex, 0};
+                }
 
-        if (queues.length > 2 && queues[1].length > 0) {
-
-            int floorToGo = queues[1][0];
-            if (floorToGo == 0) {
-                return new int[]{0, 1, 0};
-            }
-
-        }
-
-        if (queues.length > 2 && queues[3].length > 0) {
-
-            int floorToGo = queues[3][0];
-            if (floorToGo == 0) {
-                return new int[]{0, 3, 0};
             }
 
         }
