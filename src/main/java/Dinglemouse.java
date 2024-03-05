@@ -38,6 +38,11 @@ public class Dinglemouse {
 
                     List<Integer> liftStops = new ArrayList<>();
                     liftStops.add(0);
+
+                    if (floorIndex > 0) {
+                        liftStops.add(floorIndex);
+                    }
+
                     for (int personIndex = 0; personIndex < floorsToGo.length; personIndex++) {
                         liftStops.add(floorsToGo[personIndex]);
 
