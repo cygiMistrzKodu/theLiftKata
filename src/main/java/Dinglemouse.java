@@ -39,10 +39,10 @@ public class Dinglemouse {
                     }
                     Collections.sort(peopleGoUp);
                     peopleGoDown.sort(Collections.reverseOrder());
-                    liftStops.addAll(peopleGoDown);
-                    liftStops.addAll(peopleGoUp);
+                    liftStops.addAll(peopleGoDown.stream().distinct().toList());
+                    liftStops.addAll(peopleGoUp.stream().distinct().toList());
 
-                    if (liftStops.get(liftStops.size() -1) != 0) {
+                    if (liftStops.get(liftStops.size() - 1) != 0) {
                         liftStops.add(0);
                     }
 

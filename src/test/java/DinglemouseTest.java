@@ -384,7 +384,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleWantToGoFromGroundTo1Floor() {
 
         final int[][] queues = {
@@ -402,7 +401,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleWantToGoFrom3FlorToGround() {
 
         final int[][] queues = {
