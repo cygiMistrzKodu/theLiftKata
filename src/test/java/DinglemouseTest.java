@@ -1,5 +1,3 @@
-//import org.junit.Test;
-//import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -609,6 +607,42 @@ public class DinglemouseTest {
 
         final int[] result = Dinglemouse.theLift(queues, 3);
         assertArrayEquals(new int[]{0, 2, 4, 5, 0}, result);
+
+    }
+
+    @Test
+    void from6FloorOnePeopleTo5FloorSecondPeopleFrom4to2() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{2},
+                new int[0],
+                new int[]{5}
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 3);
+        assertArrayEquals(new int[]{0, 6, 5, 4, 2, 0}, result);
+
+    }
+
+    @Test
+    void from5FloorOnePeopleTo3FloorSecondPeopleFrom2to1() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[0],
+                new int[]{1},
+                new int[0],
+                new int[0],
+                new int[]{3},
+                new int[0]
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 3);
+        assertArrayEquals(new int[]{0, 5, 3, 2, 1, 0}, result);
 
     }
 
