@@ -577,7 +577,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void groundFloorOnePeopleTo2FloorFrom3floorOnePeopleTo4Floor() {
 
         final int[][] queues = {

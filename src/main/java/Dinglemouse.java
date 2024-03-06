@@ -38,6 +38,7 @@ public class Dinglemouse {
                     peopleGoDown.sort(Collections.reverseOrder());
                     liftStops.addAll(peopleGoDown.stream().distinct().toList());
                     liftStops.addAll(peopleGoUp.stream().distinct().toList());
+                    peopleGoUp.clear();
 
                 }
 
