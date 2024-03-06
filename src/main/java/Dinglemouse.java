@@ -5,6 +5,12 @@ import java.util.List;
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
 
+        List<Integer> liftStops = new ArrayList<>();
+        liftStops.add(0);
+
+        List<Integer> peopleGoDown = new ArrayList<>();
+        List<Integer> peopleGoUp = new ArrayList<>();
+
         for (int floorIndex = 0; floorIndex < queues.length; floorIndex++) {
 
             if (queues.length > 1 && queues[floorIndex].length > 0) {
@@ -12,20 +18,11 @@ public class Dinglemouse {
 
                 if (queues[floorIndex].length >= 1) {
 
-
-                    int[] floorsToGo = queues[floorIndex];
-
-                    List<Integer> liftStops = new ArrayList<>();
-                    liftStops.add(0);
-
                     if (floorIndex > 0) {
                         liftStops.add(floorIndex);
                     }
 
-                    List<Integer> peopleGoDown = new ArrayList<>();
-                    List<Integer> peopleGoUp = new ArrayList<>();
-
-
+                    int[] floorsToGo = queues[floorIndex];
                     for (int personIndex = 0; personIndex < floorsToGo.length; personIndex++) {
 
                         if (floorsToGo[personIndex] < floorIndex) {
@@ -42,12 +39,6 @@ public class Dinglemouse {
                     liftStops.addAll(peopleGoDown.stream().distinct().toList());
                     liftStops.addAll(peopleGoUp.stream().distinct().toList());
 
-                    if (liftStops.get(liftStops.size() - 1) != 0) {
-                        liftStops.add(0);
-                    }
-
-                    return liftStops.stream().mapToInt(i -> i).toArray();
-
                 }
 
 
@@ -55,7 +46,11 @@ public class Dinglemouse {
 
         }
 
-        return new int[]{0};
+        if (liftStops.get(liftStops.size() - 1) != 0) {
+            liftStops.add(0);
+        }
+
+        return liftStops.stream().mapToInt(i -> i).toArray();
 
     }
 }
