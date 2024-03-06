@@ -577,7 +577,7 @@ public class DinglemouseTest {
     }
 
     @Test
-    void groundFloorOnePeopleTo2FloorFrom3floorOnePeopleTo4Floor() {
+    void fromFloorOnePeopleTo2FloorFrom3floorOnePeopleTo4Floor() {
 
         final int[][] queues = {
                 new int[0],
@@ -593,5 +593,6 @@ public class DinglemouseTest {
         assertArrayEquals(new int[]{0, 1, 2, 3, 4, 0}, result);
 
     }
+
 
 }
