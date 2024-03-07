@@ -34,13 +34,19 @@ public class Dinglemouse {
                             }
 
                             peopleGoUp.add(floorsToGo[personIndex]);
+
                         }
 
                     }
                     Collections.sort(peopleGoUp);
                     peopleGoDown.sort(Collections.reverseOrder());
-                    liftStops.addAll(1, peopleGoDown.stream().distinct().toList());
                     liftStops.addAll(peopleGoUp.stream().distinct().toList());
+
+
+                    liftStops.addAll(1, peopleGoDown.stream().distinct().toList());
+
+
+
                     peopleGoUp.clear();
                     peopleGoDown.clear();
 
