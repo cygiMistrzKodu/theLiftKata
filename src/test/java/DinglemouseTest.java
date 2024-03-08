@@ -1,9 +1,16 @@
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DinglemouseTest {
+
+    private static void printHelp(int[] result) {
+        System.out.println(Arrays.toString(result));
+    }
+
     @Test
     void noPeopleToEnterThenLiftStayOnGroundFloor() {
 
@@ -105,6 +112,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+
         assertArrayEquals(new int[]{0, 3, 2, 0}, result);
 
     }
@@ -121,6 +129,39 @@ public class DinglemouseTest {
 
         final int[] result = Dinglemouse.theLift(queues, 5);
         assertArrayEquals(new int[]{0, 1, 2, 3, 0}, result);
+
+    }
+
+    @Test
+    void OnePeopleFrom3To2FloorSecond1ToGround() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[]{0},
+                new int[0],
+                new int[]{2}
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 5);
+
+        assertArrayEquals(new int[]{0, 3, 2, 1, 0}, result);
+
+    }
+
+    @Test
+    void OnePeopleFrom3To2FloorSecond1ToGroundTest() {
+
+        final int[][] queues = {
+                new int[0],
+                new int[]{0},
+                new int[]{1},
+                new int[0],
+                new int[]{2}
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 5);
+
+        assertArrayEquals(new int[]{0, 4, 2, 1, 0}, result);
 
     }
 

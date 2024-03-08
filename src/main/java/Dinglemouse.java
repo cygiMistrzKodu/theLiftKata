@@ -11,18 +11,39 @@ public class Dinglemouse {
             liftStops.add(0);
         }
 
+
         for (int floorIndex = 0; floorIndex < queues.length; floorIndex++) {
 
-            if ( queues[floorIndex].length > 0) {
+            if ( queues[floorIndex].length > 0 && queues[floorIndex][0] > floorIndex ) {
                liftStops.add(floorIndex);
                liftStops.add(queues[floorIndex][0]);
             }
 
         }
+
+        for (int floorIndex = queues.length -1; floorIndex >= 0; floorIndex--) {
+
+            if ( queues[floorIndex].length > 0 && queues[floorIndex][0] < floorIndex) {
+
+                if(queues[floorIndex].length  == 0 || queues.length -1 == floorIndex ) {
+                    liftStops.add(floorIndex);
+                }
+
+                if (liftStops.get(liftStops.size() -1) != floorIndex) {
+                    liftStops.add(floorIndex);
+                }
+
+                liftStops.add(queues[floorIndex][0]);
+            }
+
+        }
+
         if (liftStops.get(liftStops.size()-1) != 0) {
             liftStops.add(0);
 
         }
+
+
 
         return  liftStops.stream().mapToInt(i -> i).toArray();
 
