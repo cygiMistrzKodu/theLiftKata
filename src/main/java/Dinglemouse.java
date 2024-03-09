@@ -15,8 +15,20 @@ public class Dinglemouse {
         for (int floorIndex = 0; floorIndex < queues.length; floorIndex++) {
 
             if (queues[floorIndex].length > 0 && queues[floorIndex][0] > floorIndex) {
-                liftStops.add(floorIndex);
+
+
+                if (floorIndex == 0){
+                    liftStops.add(floorIndex);
+                }
+
+                if (floorIndex >= 1 && liftStops.get(liftStops.size() - 1) != floorIndex)  {
+                    liftStops.add(floorIndex);
+                }
+
+
                 liftStops.add(queues[floorIndex][0]);
+
+
             }
 
         }
@@ -25,9 +37,13 @@ public class Dinglemouse {
 
             if (queues[floorIndex].length > 0 && queues[floorIndex][0] < floorIndex) {
 
-                if (queues[floorIndex].length == 0 || queues.length - 1 == floorIndex) {
-                    liftStops.add(floorIndex);
-                }
+                    if (queues[floorIndex].length == 0 || queues.length - 1 == floorIndex ) {
+
+                        if (liftStops.get(liftStops.size() - 1) != floorIndex) {
+                            liftStops.add(floorIndex);
+                        }
+
+                    }
 
                 if (liftStops.get(liftStops.size() - 1) != floorIndex) {
                     liftStops.add(floorIndex);
