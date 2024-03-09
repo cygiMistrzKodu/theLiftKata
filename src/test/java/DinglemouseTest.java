@@ -199,7 +199,7 @@ public class DinglemouseTest {
     }
 
     @Test
-    void OneFrom1To4Second3ToGroundTestMorePeopleTest() {
+    void OneFrom0To2Second2To4ThreeFrom4To1() {
 
         final int[][] queues = {
                 new int[]{2},
