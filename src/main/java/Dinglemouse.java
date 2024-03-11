@@ -42,9 +42,7 @@ public class Dinglemouse {
 
                 }
 
-
             }
-
 
         }
 
@@ -52,19 +50,25 @@ public class Dinglemouse {
 
             if (queues[floorIndex].length > 0 && queues[floorIndex][0] < floorIndex) {
 
-                if (queues[floorIndex].length == 0 || queues.length - 1 == floorIndex) {
-
-                    if (liftStops.get(liftStops.size() - 1) != floorIndex) {
-                        liftStops.add(floorIndex);
-                    }
-
-                }
-
                 if (liftStops.get(liftStops.size() - 1) != floorIndex) {
                     liftStops.add(floorIndex);
                 }
 
-                liftStops.add(queues[floorIndex][0]);
+                floorPeopleWantToGo.add(queues[floorIndex][0]);
+            }
+
+            if (floorPeopleWantToGo.contains(floorIndex)) {
+
+                int index = floorPeopleWantToGo.indexOf(floorIndex);
+
+                int peopleGoOutLiftFloor = floorPeopleWantToGo.get(index);
+                floorPeopleWantToGo.remove(Integer.valueOf(peopleGoOutLiftFloor));
+
+                if (liftStops.get(liftStops.size() - 1) != floorIndex) {
+                    liftStops.add(peopleGoOutLiftFloor);
+
+                }
+
             }
 
         }
