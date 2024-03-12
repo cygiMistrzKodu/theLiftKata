@@ -11,33 +11,37 @@ public class Dinglemouse {
             liftStops.add(0);
         }
 
-        List<Integer> floorPeopleWantToGo = new ArrayList<>();
+        List<Integer> floorsPeopleWantToGo = new ArrayList<>();
 
-        for (int floorIndex = 0; floorIndex < queues.length; floorIndex++) {
-
-            if (queues[floorIndex].length > 0 && queues[floorIndex][0] > floorIndex) {
+        for (int floor = 0; floor < queues.length; floor++) {
 
 
-                if (floorIndex == 0) {
-                    liftStops.add(floorIndex);
+            if (queues[floor].length > 0 && queues[floor][0] > floor) {
+
+
+                if (floor == 0) {
+                    liftStops.add(floor);
                 }
 
-                if (floorIndex >= 1) {
-                    liftStops.add(floorIndex);
+                if (floor >= 1) {
+                    liftStops.add(floor);
                 }
 
-                floorPeopleWantToGo.add(queues[floorIndex][0]);
+                for (int peopleIndex = 0; peopleIndex < queues[floor].length; peopleIndex++) {
+                    floorsPeopleWantToGo.add(queues[floor][peopleIndex]);
+                }
+
             }
 
 
-            if (floorPeopleWantToGo.contains(floorIndex)) {
+            if (floorsPeopleWantToGo.contains(floor)) {
 
-                int index = floorPeopleWantToGo.indexOf(floorIndex);
+                int index = floorsPeopleWantToGo.indexOf(floor);
 
-                int peopleGoOutLiftFloor = floorPeopleWantToGo.get(index);
-                floorPeopleWantToGo.remove(Integer.valueOf(peopleGoOutLiftFloor));
+                int peopleGoOutLiftFloor = floorsPeopleWantToGo.get(index);
+                floorsPeopleWantToGo.remove(Integer.valueOf(peopleGoOutLiftFloor));
 
-                if (liftStops.get(liftStops.size() - 1) != floorIndex) {
+                if (liftStops.get(liftStops.size() - 1) != floor) {
                     liftStops.add(peopleGoOutLiftFloor);
 
                 }
@@ -54,15 +58,15 @@ public class Dinglemouse {
                     liftStops.add(floorIndex);
                 }
 
-                floorPeopleWantToGo.add(queues[floorIndex][0]);
+                floorsPeopleWantToGo.add(queues[floorIndex][0]);
             }
 
-            if (floorPeopleWantToGo.contains(floorIndex)) {
+            if (floorsPeopleWantToGo.contains(floorIndex)) {
 
-                int index = floorPeopleWantToGo.indexOf(floorIndex);
+                int index = floorsPeopleWantToGo.indexOf(floorIndex);
 
-                int peopleGoOutLiftFloor = floorPeopleWantToGo.get(index);
-                floorPeopleWantToGo.remove(Integer.valueOf(peopleGoOutLiftFloor));
+                int peopleGoOutLiftFloor = floorsPeopleWantToGo.get(index);
+                floorsPeopleWantToGo.remove(Integer.valueOf(peopleGoOutLiftFloor));
 
                 if (liftStops.get(liftStops.size() - 1) != floorIndex) {
                     liftStops.add(peopleGoOutLiftFloor);
