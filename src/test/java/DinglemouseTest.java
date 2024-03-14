@@ -541,7 +541,6 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
-        printHelp(result);
         assertArrayEquals(new int[]{0, 2, 3, 2, 1, 0}, result);
     }
 

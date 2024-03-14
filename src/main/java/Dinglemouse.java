@@ -63,12 +63,10 @@ public class Dinglemouse {
                     }
 
                 }
-            }
 
-
-            for (int peopleIndex = 0; peopleIndex < queues[floor].length; peopleIndex++) {
                 floorsPeopleWantToGo.add(queues[floor][peopleIndex]);
             }
+
 
             if (floorsPeopleWantToGo.contains(floor)) {
 
