@@ -25,7 +25,10 @@ public class Dinglemouse {
                 for (int peopleIndex = 0; peopleIndex < queues[floor].length; peopleIndex++) {
 
                     if (floor >= 1 && queues[floor][peopleIndex] > floor) {
-                        liftStops.add(floor);
+
+                        if (liftStops.get(liftStops.size() - 1) != floor) {
+                            liftStops.add(floor);
+                        }
                     }
                 }
 
