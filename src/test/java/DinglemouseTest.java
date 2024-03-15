@@ -545,18 +545,18 @@ public class DinglemouseTest {
     }
 
     @Test
-    void threePeopleFromGroundToFloors1and4and2() {
+    void threePeopleFrom4ToFloors1and2and0() {
 
         final int[][] queues = {
-                new int[]{1, 4, 2},
                 new int[0],
                 new int[0],
                 new int[0],
-                new int[0]
+                new int[0],
+                new int[]{1, 0, 2}
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
-        assertArrayEquals(new int[]{0, 1, 2, 4, 0}, result);
+        assertArrayEquals(new int[]{0, 4, 2, 1, 0}, result);
     }
 
 }
