@@ -4,27 +4,39 @@ import java.util.stream.IntStream;
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
 
-        if (queues[0].length == 0) {
-            return new int[]{0};
-        }
 
         List<Integer> liftStops = new ArrayList<>();
 
-        liftStops.add(0);
         for (int floor = 0; floor < queues.length; floor++) {
 
-            for (int peopleGoToFloorIndex = 0; peopleGoToFloorIndex < queues[floor].length; peopleGoToFloorIndex++) {
+            if (queues[floor].length == 0 && floor == 0) {
+                liftStops.add(0);
+            }
 
-                if (peopleGoToFloorIndex > capacity -1) {
-                        liftStops.add(floor);
+            if (queues[floor].length > 0) {
+                liftStops.add(floor);
+            }
+
+
+            for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
+
+
+                if (peopleGoToIndex > capacity - 1) {
+                    liftStops.add(floor);
                 }
 
-                liftStops.add(queues[floor][peopleGoToFloorIndex]);
+                liftStops.add(queues[floor][peopleGoToIndex]);
             }
 
 
         }
-        liftStops.add(0);
+
+        if (liftStops.get(liftStops.size() -1) != 0) {
+
+            liftStops.add(0);
+        }
+
+
 
         return liftStops.stream().mapToInt(i -> i).toArray();
 
