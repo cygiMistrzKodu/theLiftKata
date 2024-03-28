@@ -7,7 +7,6 @@ public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
 
         List<Integer> liftStopsUp = new ArrayList<>();
-        List<Integer> liftStopsDown = new ArrayList<>();
 
         for (int floor = 0; floor < queues.length; floor++) {
 
@@ -16,7 +15,7 @@ public class Dinglemouse {
                 liftStopsUp.add(0);
             }
 
-            if (queues[floor].length > 0) {
+            if (queues[floor].length > 0 && queues[floor][0] > floor) {
                 liftStopsUp.add(floor);
             }
 
@@ -32,20 +31,32 @@ public class Dinglemouse {
                     liftStopsUp.add(queues[floor][peopleGoToIndex]);
                 }
 
-                if (queues[floor][peopleGoToIndex] < floor) {
-
-//                    if (peopleGoToIndex > capacity - 1) {  // to tu narazie przytrzymam
-//                        liftStopsUp.add(floor);
-//                    }
-
-                    liftStopsDown.add(queues[floor][peopleGoToIndex]);
-                }
-
 
             }
 
 
         }
+
+        List<Integer> liftStopsDown = new ArrayList<>();
+
+        for (int floor = queues.length - 1; floor > 0; floor--) {
+
+            if (queues[floor].length > 0 && queues[floor][0] < floor) {
+                liftStopsDown.add(floor);
+            }
+
+            for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
+
+
+                if (queues[floor][peopleGoToIndex] < floor) {
+
+                    liftStopsDown.add(queues[floor][peopleGoToIndex]);
+                }
+            }
+
+
+        }
+
 
         List<Integer> liftStops = Stream.concat(liftStopsUp.stream(), liftStopsDown.stream()).collect(Collectors.toList());
 
