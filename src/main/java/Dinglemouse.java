@@ -50,6 +50,10 @@ public class Dinglemouse {
 
                 if (queues[floor][peopleGoToIndex] < floor) {
 
+                    if (peopleGoToIndex > capacity - 1) {
+                        liftStopsDown.add(floor);
+                    }
+
                     liftStopsDown.add(queues[floor][peopleGoToIndex]);
                 }
             }
