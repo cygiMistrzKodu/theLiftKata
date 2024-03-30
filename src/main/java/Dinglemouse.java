@@ -37,12 +37,17 @@ public class Dinglemouse {
 
         }
 
-        List<Integer> liftStopsDown = new ArrayList<>();
+        List<Integer> liftStopsOnFloorsGowingDown = new ArrayList<>();
+        List<Integer> peopleInLiftGoesDown = new ArrayList<>();
+        List<Integer> liftReturnOnSameFloorCaseOfCapacity = new ArrayList<>();
+        int countAddition = 0;
 
+        int sameFloorCapacity = 0;
+        int peopleGoOutFromLift = 0;
         for (int floor = queues.length - 1; floor > 0; floor--) {
 
             if (queues[floor].length > 0 && queues[floor][0] < floor) {
-                liftStopsDown.add(floor);
+                liftStopsOnFloorsGowingDown.add(floor);
             }
 
             for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
@@ -51,18 +56,45 @@ public class Dinglemouse {
                 if (queues[floor][peopleGoToIndex] < floor) {
 
                     if (peopleGoToIndex > capacity - 1) {
-                        liftStopsDown.add(floor);
+//                        liftStopsOnFloorsGowingDown.add(floor);
+                        liftReturnOnSameFloorCaseOfCapacity.add(floor);
+//                        peopleInLiftGoDown.add(floor);
                     }
 
-                    liftStopsDown.add(queues[floor][peopleGoToIndex]);
+//                    liftStopsOnFloorsGowingDown.add(queues[floor][peopleGoToIndex]);
+                    peopleInLiftGoesDown.add(queues[floor][peopleGoToIndex]);
                 }
             }
+
+            if (peopleInLiftGoesDown.contains(floor)) {
+
+//                int index = peopleInLiftGoDown.indexOf(floor);
+//                int floorPeopleOut = peopleInLiftGoDown.get(index);
+
+                int floorPeopleOut = peopleInLiftGoesDown.get(peopleGoOutFromLift++);
+                liftStopsOnFloorsGowingDown.add(floorPeopleOut);
+                countAddition++;
+
+
+                if (sameFloorCapacity < liftReturnOnSameFloorCaseOfCapacity.size()) {
+
+                    if (countAddition > capacity - 1) {
+
+                        int backToFloor = liftReturnOnSameFloorCaseOfCapacity.get(sameFloorCapacity++);
+                        liftStopsOnFloorsGowingDown.add(backToFloor);
+                    }
+                }
+
+            }
+
+//            liftStopsOnFloorsGowingDown.addAll(peopleWantToGoDawnOutOfLift);
+//            peopleWantToGoDawnOutOfLift.clear();
 
 
         }
 
 
-        List<Integer> liftStops = Stream.concat(liftStopsUp.stream(), liftStopsDown.stream()).collect(Collectors.toList());
+        List<Integer> liftStops = Stream.concat(liftStopsUp.stream(), liftStopsOnFloorsGowingDown.stream()).collect(Collectors.toList());
 
 
         if (liftStops.get(liftStops.size() - 1) != 0) {

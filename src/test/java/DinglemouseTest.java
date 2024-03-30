@@ -163,7 +163,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
-
+        printHelp(result);
         assertArrayEquals(new int[]{0, 4, 2, 1, 0}, result);
 
     }
@@ -251,7 +251,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OneFrom4To2Second3To1Test() {
 
         final int[][] queues = {
@@ -263,6 +262,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 4, 3, 2, 1, 0}, result);
     }
 
