@@ -92,7 +92,13 @@ public class Dinglemouse {
 
 
                 int peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleGoOutFromLift++);
-                liftStopsDown.add(peopleLeaveLift);
+
+               int lastFloor =  liftStopsDown.get(liftStopsDown.size()-1);
+
+               if (lastFloor != peopleLeaveLift) {
+                   liftStopsDown.add(peopleLeaveLift);
+               }
+
                 peopleGoOutTheLiftCounter++;
 
 
