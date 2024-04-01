@@ -8,6 +8,12 @@ public class Dinglemouse {
 
         List<Integer> liftStopsUp = new ArrayList<>();
 
+        List<Integer> peopleEnterTheLiftToUpFloors = new ArrayList<>();
+
+        List<Integer> timesLiftReturnToFloorUp = new ArrayList<>();
+        int peopleStepOutTheLiftToUpCounter = 0;
+        int liftReturnToSameFloorFromUp = 0;
+
         for (int floor = 0; floor < queues.length; floor++) {
 
 
@@ -25,12 +31,31 @@ public class Dinglemouse {
                 if (queues[floor][peopleGoToIndex] > floor) {
 
                     if (peopleGoToIndex > capacity - 1) {
-                        liftStopsUp.add(floor);
+                        timesLiftReturnToFloorUp.add(floor);
                     }
 
-                    liftStopsUp.add(queues[floor][peopleGoToIndex]);
+                    peopleEnterTheLiftToUpFloors.add(queues[floor][peopleGoToIndex]);
                 }
 
+
+            }
+
+            if (peopleEnterTheLiftToUpFloors.contains(floor)) {
+
+                int peopleLeaveIndex = peopleEnterTheLiftToUpFloors.indexOf(floor);
+                int peopleLeaveFloorNumber = peopleEnterTheLiftToUpFloors.get(peopleLeaveIndex);
+                liftStopsUp.add(peopleLeaveFloorNumber);
+                peopleStepOutTheLiftToUpCounter++;
+
+
+                if (liftReturnToSameFloorFromUp < timesLiftReturnToFloorUp.size()) {
+
+                    if (peopleStepOutTheLiftToUpCounter > capacity - 1) {
+
+                        int liftBackToSameFloor = timesLiftReturnToFloorUp.get(liftReturnToSameFloorFromUp++);
+                        liftStopsUp.add(liftBackToSameFloor);
+                    }
+                }
 
             }
 
