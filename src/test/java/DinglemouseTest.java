@@ -151,7 +151,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OnePeopleFrom1ToGroundSecond2To1ThirdFrom4To2Test() {
 
         final int[][] queues = {
