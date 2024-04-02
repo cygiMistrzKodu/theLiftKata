@@ -357,7 +357,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void mixCaseWithPeopleGoUpAndDown() {
 
         final int[][] queues = {
