@@ -110,7 +110,16 @@ public class Dinglemouse {
 
             if (peopleEnterTheLiftToDownFloors.contains(floor)) {
 
-                int peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleGoOutFromLift++);
+                int peopleLeaveLift = 0;
+                if (capacity > peopleEnterTheLiftToDownFloors.size()) {
+
+                    int peopleLeaveIndex = peopleEnterTheLiftToDownFloors.indexOf(floor);
+                    peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleLeaveIndex);
+                } else {
+
+                    peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleGoOutFromLift++);
+                }
+
 
                 int lastFloor = -1;
                 if (!liftStopsDown.isEmpty()) {

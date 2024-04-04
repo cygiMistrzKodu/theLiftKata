@@ -511,7 +511,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void threePeopleGoFrom4To3and2FloorTheOrderShouldNotMatter() {
 
         final int[][] queues = {
@@ -523,6 +522,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 4, 3, 2, 0}, result);
     }
 
