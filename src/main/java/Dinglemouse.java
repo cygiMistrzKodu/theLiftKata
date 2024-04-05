@@ -84,12 +84,19 @@ public class Dinglemouse {
 
         for (int floor = queues.length - 1; floor >= 0; floor--) {
 
-            if (queues[floor].length > 0 && queues[floor][0] < floor) {
 
-                if (liftStopsUp.get(liftStopsUp.size() - 1) != floor) {
-                    liftStopsDown.add(floor);
+            for (int peopleGoToFloorIndex = 0; peopleGoToFloorIndex < queues[floor].length; peopleGoToFloorIndex++) {
+
+                if (queues[floor].length > 0 && queues[floor][peopleGoToFloorIndex] < floor) {
+
+                    if (liftStopsUp.get(liftStopsUp.size() - 1) != floor) {
+                        liftStopsDown.add(floor);
+                        break;
+                    }
                 }
+
             }
+
 
             for (int peopleGoToFloorIndex = 0; peopleGoToFloorIndex < queues[floor].length; peopleGoToFloorIndex++) {
 
@@ -116,7 +123,7 @@ public class Dinglemouse {
 
             if (peopleEnterTheLiftToDownFloors.contains(floor)) {
 
-                int peopleLeaveLift = 0;
+                int peopleLeaveLift;
                 if (capacity > peopleEnterTheLiftToDownFloors.size()) {
 
                     int peopleLeaveIndex = peopleEnterTheLiftToDownFloors.indexOf(floor);

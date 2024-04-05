@@ -543,7 +543,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleGoFrom2FloorTo1And3FloorInReverseOrder() {
 
         final int[][] queues = {
@@ -555,6 +554,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 2, 3, 2, 1, 0}, result);
     }
 
