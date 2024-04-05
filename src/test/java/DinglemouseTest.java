@@ -619,7 +619,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void manyCasesTestWith3PersonOnEachFloor() {
 
         final int[][] queues = {
@@ -635,7 +634,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void multiCaseWith4PeoplesOnEveryFloor() {
 
         final int[][] queues = {
@@ -651,7 +649,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void multiCaseWith4PeopleOnFloors0and1and3WithDuplicationsAndUpaAndDownDirection() {
 
         final int[][] queues = {
