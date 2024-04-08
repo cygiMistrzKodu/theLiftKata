@@ -691,6 +691,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 1);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 1, 0, 2, 0, 4, 0}, result);
     }
 
@@ -836,6 +837,28 @@ public class DinglemouseTest {
         final int[] result = Dinglemouse.theLift(queues, 1);
         printHelp(result);
         assertArrayEquals(new int[]{0, 3, 1, 3, 2, 0}, result);
+    }
+
+
+    @Test
+    void liftCapacity3and6peopleFloors10AllGoFrom0Floor() {
+
+        final int[][] queues = {
+                new int[]{3, 4, 5, 8, 7, 9},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0]
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 3);
+        printHelp(result);
+        assertArrayEquals(new int[]{0, 3, 4, 5, 0, 7, 8, 9, 0}, result);
     }
 
 }

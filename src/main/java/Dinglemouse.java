@@ -30,17 +30,22 @@ public class Dinglemouse {
                 }
             }
 
-
+            int maxPeopleCounter = 0;
             for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
 
                 if (queues[floor][peopleGoToIndex] > floor) {
 
-                    if (peopleGoToIndex > capacity - 1) {
+//                    if (peopleGoToIndex > capacity - 1) { // zle liczenie jest jakoś to można by poprawić
+//                        timesLiftReturnToFloorUp.add(floor);
+//                    }
+
+                    if (maxPeopleCounter == capacity) { // Test
                         timesLiftReturnToFloorUp.add(floor);
+                        maxPeopleCounter = 0;
                     }
 
-
                     peopleEnterTheLiftToUpFloors.add(queues[floor][peopleGoToIndex]);
+                    maxPeopleCounter++;
                 }
 
 
@@ -62,10 +67,11 @@ public class Dinglemouse {
 
                 if (liftReturnToSameFloorFromUp < timesLiftReturnToFloorUp.size()) {
 
-                    if (peopleStepOutTheLiftToUpCounter > capacity - 1) {
+                    if (peopleStepOutTheLiftToUpCounter > capacity - 1) { // tu jest jeszcze wina zlego liczenia pewnie
 
                         int liftBackToSameFloor = timesLiftReturnToFloorUp.get(liftReturnToSameFloorFromUp++);
                         liftStopsUp.add(liftBackToSameFloor);
+//                        peopleStepOutTheLiftToUpCounter = 0;  // ??
                     }
                 }
 
