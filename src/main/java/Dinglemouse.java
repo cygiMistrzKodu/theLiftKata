@@ -1,10 +1,17 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
+
+        System.out.println("in Queues");  // temporary to remove when finish
+        System.out.println(Arrays.deepToString(queues));
+        System.out.println("-----------------------------");
+        System.out.println("Capacity");
+        System.out.println(capacity);
 
         List<Integer> liftStopsUp = new ArrayList<>();
 
@@ -95,10 +102,14 @@ public class Dinglemouse {
 
                 if (queues[floor].length > 0 && queues[floor][peopleGoToFloorIndex] < floor) {
 
-                    if (liftStopsUp.get(liftStopsUp.size() - 1) != floor) {
-                        liftStopsDown.add(floor);
+
+                    if (floor == queues.length -1 && liftStopsUp.get(liftStopsUp.size() - 1) == floor ){
                         break;
                     }
+
+                    liftStopsDown.add(floor);
+                    break;
+
                 }
 
             }

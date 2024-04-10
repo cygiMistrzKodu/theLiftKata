@@ -307,6 +307,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 4, 3, 2, 1, 0}, result);
     }
 
@@ -368,6 +369,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 1, 3, 4, 2, 1, 0}, result);
     }
 
@@ -630,6 +632,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 15);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0}, result);
     }
 
@@ -645,6 +648,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 15);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 1, 2, 3, 4, 3, 2, 1, 0}, result);
     }
 
@@ -859,6 +863,45 @@ public class DinglemouseTest {
         final int[] result = Dinglemouse.theLift(queues, 3);
         printHelp(result);
         assertArrayEquals(new int[]{0, 3, 4, 5, 0, 7, 8, 9, 0}, result);
+    }
+
+    @Test
+    void testLiftFullUpp() {
+
+        final int[][] queues = {
+                new int[]{3, 4, 5, 8, 7, 9},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0]
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 3);
+        printHelp(result);
+        assertArrayEquals(new int[]{0, 3, 4, 5, 0, 7, 8, 9, 0}, result);
+    }
+
+    @Test
+    void testUpAndDown() {
+
+        final int[][] queues = {
+                new int[]{3},
+                new int[]{2},
+                new int[]{0},
+                new int[]{2},
+                new int[0],
+                new int[0],
+                new int[]{5},
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
+        assertArrayEquals(new int[]{0, 1, 2, 3, 6, 5, 3, 2, 0}, result);
     }
 
 }
