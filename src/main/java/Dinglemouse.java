@@ -1,181 +1,41 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
 
-        System.out.println("in Queues");  // temporary to remove when finish
-        System.out.println(Arrays.deepToString(queues));
-        System.out.println("-----------------------------");
-        System.out.println("Capacity");
-        System.out.println(capacity);
+        List<Floor> building = new ArrayList<>();
 
-        List<Integer> liftStopsUp = new ArrayList<>();
+        for (int floorNumber = 0; floorNumber < queues.length; floorNumber++) {
 
-        List<Integer> peopleEnterTheLiftToUpFloors = new ArrayList<>();
+            Floor floor = new Floor();
+            floor.setNumber(floorNumber);
 
-        List<Integer> timesLiftReturnToFloorUp = new ArrayList<>();
-        int peopleStepOutTheLiftToUpCounter = 0;
-        int liftReturnToSameFloorFromUp = 0;
+            for (int peopleOnFloor = 0; peopleOnFloor < queues[floorNumber].length; peopleOnFloor++) {
 
-        for (int floor = 0; floor < queues.length; floor++) {
-
-
-            if (queues[floor].length == 0 && floor == 0) {
-                liftStopsUp.add(0);
+                floor.addPeopleWaitingForLift(queues[floorNumber][peopleOnFloor]);
             }
-
-
-            for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
-
-                if (queues[floor].length > 0 && queues[floor][peopleGoToIndex] > floor) {
-                    liftStopsUp.add(floor);
-                    break;
-                }
-            }
-
-            int maxPeopleCounter = 0;
-            for (int peopleGoToIndex = 0; peopleGoToIndex < queues[floor].length; peopleGoToIndex++) {
-
-                if (queues[floor][peopleGoToIndex] > floor) {
-
-                    if (maxPeopleCounter == capacity) {
-                        timesLiftReturnToFloorUp.add(floor);
-                        maxPeopleCounter = 0;
-                    }
-
-                    peopleEnterTheLiftToUpFloors.add(queues[floor][peopleGoToIndex]);
-                    maxPeopleCounter++;
-                }
-
-
-            }
-
-            if (peopleEnterTheLiftToUpFloors.contains(floor)) {
-
-                int peopleLeaveIndex = peopleEnterTheLiftToUpFloors.indexOf(floor);
-                int peopleLeaveFloorNumber = peopleEnterTheLiftToUpFloors.get(peopleLeaveIndex);
-
-                int lastFloor = liftStopsUp.get(liftStopsUp.size() - 1);
-
-                if (lastFloor != peopleLeaveFloorNumber) {
-                    liftStopsUp.add(peopleLeaveFloorNumber);
-                }
-
-                peopleStepOutTheLiftToUpCounter++;
-
-
-                if (liftReturnToSameFloorFromUp < timesLiftReturnToFloorUp.size()) {
-
-                    if (peopleStepOutTheLiftToUpCounter > capacity - 1) {
-
-                        int liftBackToSameFloor = timesLiftReturnToFloorUp.get(liftReturnToSameFloorFromUp++);
-                        liftStopsUp.add(liftBackToSameFloor);
-                    }
-                }
-
-            }
-
+            building.add(floor);
 
         }
 
-        List<Integer> liftStopsDown = new ArrayList<>();
-        List<Integer> peopleEnterTheLiftToDownFloors = new ArrayList<>();
-        List<Integer> timesLiftReturnToFloor = new ArrayList<>();
 
-        int peopleGoOutTheLiftCounter = 0;
-        int peopleGoOutFromLift = 0;
-        int backToSameFloorsNext = 0;
+        List<Integer> liftStops = new ArrayList<>();
 
-        for (int floor = queues.length - 1; floor >= 0; floor--) {
+        for (int i = 0; i < building.size(); i++) {
 
+            Floor floor = building.get(i);
 
-            for (int peopleGoToFloorIndex = 0; peopleGoToFloorIndex < queues[floor].length; peopleGoToFloorIndex++) {
-
-                if (queues[floor].length > 0 && queues[floor][peopleGoToFloorIndex] < floor) {
-
-
-                    if (floor == queues.length -1 && liftStopsUp.get(liftStopsUp.size() - 1) == floor ){
-                        break;
-                    }
-
-                    liftStopsDown.add(floor);
-                    break;
-
-                }
-
+            if (!floor.peopleWaitingForLift.isEmpty() || i == 0) {
+                liftStops.add(floor.getNumber());
             }
 
-
-            for (int peopleGoToFloorIndex = 0; peopleGoToFloorIndex < queues[floor].length; peopleGoToFloorIndex++) {
-
-                if (queues[floor][peopleGoToFloorIndex] < floor) {
-
-                    if (peopleGoToFloorIndex > capacity - 1) {
-                        timesLiftReturnToFloor.add(floor);
-                    }
-
-                    if (!peopleEnterTheLiftToDownFloors.isEmpty()) {
-
-                        int peopleWantToGoOnFloor = queues[floor][peopleGoToFloorIndex];
-                        int lastPeopleInLift = peopleEnterTheLiftToDownFloors.get(peopleEnterTheLiftToDownFloors.size() - 1);
-                        if (peopleWantToGoOnFloor != lastPeopleInLift) {
-                            peopleEnterTheLiftToDownFloors.add(peopleWantToGoOnFloor);
-                        }
-                    } else {
-
-                        peopleEnterTheLiftToDownFloors.add(queues[floor][peopleGoToFloorIndex]);
-                    }
-
-                }
-            }
-
-            if (peopleEnterTheLiftToDownFloors.contains(floor)) {
-
-                int peopleLeaveLift;
-                if (capacity > peopleEnterTheLiftToDownFloors.size()) {
-
-                    int peopleLeaveIndex = peopleEnterTheLiftToDownFloors.indexOf(floor);
-                    peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleLeaveIndex);
-
-                } else {
-
-                    peopleLeaveLift = peopleEnterTheLiftToDownFloors.get(peopleGoOutFromLift++);
-                }
-
-
-                int lastFloor = -1;
-                if (!liftStopsDown.isEmpty()) {
-                    lastFloor = liftStopsDown.get(liftStopsDown.size() - 1);
-                }
-
-                if (lastFloor != peopleLeaveLift) {
-                    liftStopsDown.add(peopleLeaveLift);
-                    peopleGoOutTheLiftCounter++;
-                }
-
-
-                if (backToSameFloorsNext < timesLiftReturnToFloor.size()) {
-
-                    if (peopleGoOutTheLiftCounter > capacity - 1) {
-
-                        int liftBackToSameFloor = timesLiftReturnToFloor.get(backToSameFloorsNext++);
-                        liftStopsDown.add(liftBackToSameFloor);
-                    }
-                }
-
-            }
-
+            Collections.sort(floor.peopleWaitingForLift);
+            liftStops.addAll(floor.peopleWaitingForLift);
         }
 
-        List<Integer> liftStops = Stream.concat(liftStopsUp.stream(), liftStopsDown.stream()).collect(Collectors.toList());
-
-
-        if (liftStops.get(liftStops.size() - 1) != 0) {
-
+        if (!(liftStops.size() == 1 && liftStops.get(0) == 0)) {
             liftStops.add(0);
         }
 
@@ -183,6 +43,31 @@ public class Dinglemouse {
         return liftStops.stream().mapToInt(i -> i).toArray();
 
 
+    }
+
+    private static class Floor {
+
+        private Integer number;
+        private final List<Integer> peopleWaitingForLift = new ArrayList<>();
+
+        public Floor() {
+        }
+
+        public Integer getNumber() {
+            return number;
+        }
+
+        public void setNumber(Integer number) {
+            this.number = number;
+        }
+
+        public void addPeopleWaitingForLift(Integer floorToGo) {
+            peopleWaitingForLift.add(floorToGo);
+        }
+
+        public void peopleEnterTheLift(Integer floorToGo) {
+            peopleWaitingForLift.remove(floorToGo);
+        }
     }
 
 
