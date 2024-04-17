@@ -57,21 +57,22 @@ public class Dinglemouse {
             }
 
             if (enterTheLiftToGoUpDirection.contains(i)) {
-               int peopleIndex =  enterTheLiftToGoUpDirection.indexOf(i);
-               if (peopleIndex != -1) {
+                int peopleIndex = enterTheLiftToGoUpDirection.indexOf(i);
+                if (peopleIndex != -1) {
 
-                Integer peopleEnterTheFloor =   enterTheLiftToGoUpDirection.get(peopleIndex);
-                Integer lastFloorTheLiftStop = liftStops.get(liftStops.size() -1);
+                    Integer peopleEnterTheFloorFromLift = enterTheLiftToGoUpDirection.get(peopleIndex);
+                    Integer lastFloorTheLiftStop = liftStops.get(liftStops.size() - 1);
 
-                if (!Objects.equals(peopleEnterTheFloor, lastFloorTheLiftStop)) {
-                    liftStops.add(enterTheLiftToGoUpDirection.get(peopleIndex));
+                    if (!Objects.equals(peopleEnterTheFloorFromLift, lastFloorTheLiftStop)) {
+                        liftStops.add(peopleEnterTheFloorFromLift);
+                    }
+
                 }
-
-               }
             }
 
         }
 
+        List<Integer> enterTheLiftToGoDownDirection = new ArrayList<>();
         for (int i = building.size() - 1; i > 0; i--) {
 
             Floor floor = building.get(i);
@@ -86,10 +87,26 @@ public class Dinglemouse {
                     }
 
 
-                    liftStops.addAll(floor.peopleWaitingForLift);
+                    floor.peopleWaitingForLift.stream()
+                            .filter(peopleGo -> peopleGo < floor.number)
+                            .forEach(enterTheLiftToGoDownDirection::add);
                 }
 
 
+            }
+
+            if (enterTheLiftToGoDownDirection.contains(i)) {
+                int peopleIndex = enterTheLiftToGoDownDirection.indexOf(i);
+                if (peopleIndex != -1) {
+
+                    Integer peopleEnterTheFloorFromLift = enterTheLiftToGoDownDirection.get(peopleIndex);
+                    Integer lastFloorTheLiftStop = liftStops.get(liftStops.size() - 1);
+
+                    if (!Objects.equals(peopleEnterTheFloorFromLift, lastFloorTheLiftStop)) {
+                        liftStops.add(peopleEnterTheFloorFromLift);
+                    }
+
+                }
             }
 
 
