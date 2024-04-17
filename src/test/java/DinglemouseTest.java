@@ -101,6 +101,7 @@ public class DinglemouseTest {
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
         assertArrayEquals(new int[]{0, 2, 3, 0}, result);
 
     }
@@ -153,7 +154,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OnePeopleFrom1ToGroundSecond2To1ThirdFrom4To2Test() {
 
         final int[][] queues = {
@@ -171,7 +171,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OnePeopleFrom0To3FloorSecond4To2Test() {
 
         final int[][] queues = {
@@ -189,7 +188,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OneFrom1To4Second3ToGroundTest() {
 
         final int[][] queues = {
@@ -206,7 +204,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OneFrom0To2Second2To4ThreeFrom4To1() {
 
         final int[][] queues = {
@@ -224,7 +221,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void OneFrom0To3Second1To2() {
 
         final int[][] queues = {
