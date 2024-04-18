@@ -36,7 +36,7 @@ public class Dinglemouse {
             if (!floor.peopleWaitingForLift.isEmpty()) {
 
 
-                if (floor.number < floor.peopleWaitingForLift.get(0)) {
+                if (floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo > floor.number)) {
 
                     if (liftStops.isEmpty()) {
                         liftStops.add(floor.getNumber());
@@ -49,7 +49,6 @@ public class Dinglemouse {
                     floor.peopleWaitingForLift.stream()
                             .filter(peopleGo -> peopleGo > floor.number)
                             .forEach(enterTheLiftToGoUpDirection::add);
-
 
                 }
 
@@ -80,7 +79,7 @@ public class Dinglemouse {
             if (!floor.peopleWaitingForLift.isEmpty()) {
 
 
-                if (floor.number > floor.peopleWaitingForLift.get(0)) {
+                if (floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo < floor.number)) {
 
                     if (!Objects.equals(liftStops.get(liftStops.size() - 1), floor.number)) {
                         liftStops.add(floor.getNumber());

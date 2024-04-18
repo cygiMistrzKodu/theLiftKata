@@ -533,7 +533,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleGoFrom2FloorTo1And3Floor() {
 
         final int[][] queues = {
@@ -550,7 +549,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleGoFrom2FloorTo1And3FloorInReverseOrder() {
 
         final int[][] queues = {
