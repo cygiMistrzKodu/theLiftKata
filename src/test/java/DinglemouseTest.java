@@ -565,7 +565,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void twoPeopleFromFirstFloorTo3Floor() {
 
         final int[][] queues = {
@@ -581,7 +580,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void threePeopleFromFirstFloorTo3Floor() {
 
         final int[][] queues = {
@@ -597,7 +595,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void threePeopleFromFirstFloorOneGoTo2Floor2GoTo3Floor() {
 
         final int[][] queues = {
@@ -613,7 +610,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void threePeopleFromThreeFloorTo1Floor() {
 
         final int[][] queues = {
@@ -629,7 +625,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void manyCasesTestWith3PersonOnEachFloor() {
 
         final int[][] queues = {
@@ -646,7 +641,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void multiCaseWith4PeoplesOnEveryFloor() {
 
         final int[][] queues = {
@@ -663,7 +657,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void multiCaseWith4PeopleOnFloors0and1and3WithDuplicationsAndUpaAndDownDirection() {
 
         final int[][] queues = {
@@ -911,7 +904,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void testUpAndDown() {
 
         final int[][] queues = {
