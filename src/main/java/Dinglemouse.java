@@ -87,6 +87,7 @@ public class Dinglemouse {
             enterTheLiftToGoUpDirection.clear();
 
             List<Integer> enterTheLiftToGoDownDirection = new ArrayList<>();
+
             for (int i = building.size() - 1; i > 0; i--) {
 
                 Floor floor = building.get(i);

@@ -690,7 +690,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity1and3PeopleFromGroundWantToGoToFloors1and2and4() {
 
         final int[][] queues = {
@@ -707,7 +706,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity2and3PeopleFromGroundWantToGoToFloors1and2and4() {
 
         final int[][] queues = {
@@ -723,7 +721,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity3and4PeopleFromGroundWantToGoToFloors1and2and4and5() {
 
         final int[][] queues = {
