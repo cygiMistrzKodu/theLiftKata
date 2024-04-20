@@ -24,16 +24,14 @@ public class Dinglemouse {
         List<Integer> liftStops = new ArrayList<>();
         List<Integer> enterTheLiftToGoUpDirection = new ArrayList<>();
 
+        liftStops.add(0);
+
         while (isPeopleWaitingOnTheAtLeastOneFloor(building)) {
 
             for (int i = 0; i < building.size(); i++) {
 
                 Floor floor = building.get(i);
 
-
-                if (floor.peopleWaitingForLift.isEmpty() && i == 0) {
-                    liftStops.add(floor.getNumber());
-                }
 
                 if (!floor.peopleWaitingForLift.isEmpty()) {
 
@@ -61,6 +59,7 @@ public class Dinglemouse {
                                     }
                                 });
 
+
                         floor.peopleWaitingForLift.removeAll(peopleOnCurrentFloorGoingUp);
 
 
@@ -82,6 +81,7 @@ public class Dinglemouse {
 
                     }
                 }
+
 
             }
             enterTheLiftToGoUpDirection.clear();

@@ -738,7 +738,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity1an2PeopleFrom1FloorWantToGoToFloors2and3() {
 
         final int[][] queues = {
