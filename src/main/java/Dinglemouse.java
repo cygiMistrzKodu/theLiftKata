@@ -60,11 +60,8 @@ public class Dinglemouse {
                                 });
 
 
-                        floor.peopleWaitingForLift.removeAll(peopleOnCurrentFloorGoingUp);
-
-
+                        peopleOnCurrentFloorGoingUp.forEach(floor.peopleWaitingForLift::remove);
                     }
-
 
                 }
 
