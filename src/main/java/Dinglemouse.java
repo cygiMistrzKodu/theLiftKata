@@ -113,7 +113,7 @@ public class Dinglemouse {
                                     }
                                 });
 
-                        floor.peopleWaitingForLift.removeAll(peopleOnCurrentFloorGoingDown);
+                        peopleOnCurrentFloorGoingDown.forEach(floor.peopleWaitingForLift::remove);
                     }
 
 
