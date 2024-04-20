@@ -754,7 +754,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacityOneAndTwoPeopleWantToGoDownTo3AndSecondTo2FloorFrom4Floor() {
 
         final int[][] queues = {
@@ -771,7 +770,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity1AndThreePeopleWantToGoDownTo1AndSecondTo2AndThreeTo1FloorFrom4Floor() {
 
         final int[][] queues = {
@@ -788,7 +786,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity2AndTwoPeopleWantToGoDownTo1AndSecondTo2AndThreeTo1FloorFrom4Floor() {
 
         final int[][] queues = {
@@ -805,7 +802,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity3and4PeopleFrom5FloorWantToGoToFloors4and3and2and1() {
 
         final int[][] queues = {
@@ -822,7 +818,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity1an2PeopleFrom3FloorWantToGoToFloors2and1() {
 
         final int[][] queues = {
@@ -839,7 +834,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void liftCapacity1an2PeopleFrom3FloorWantToGoToFloors2and1ChangingDirectionInFloorQueue() {
 
         final int[][] queues = {
@@ -857,7 +851,6 @@ public class DinglemouseTest {
 
 
     @Test
-    @Disabled
     void liftCapacity3and6peopleFloors10AllGoFrom0Floor() {
 
         final int[][] queues = {
@@ -879,7 +872,6 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
     void testLiftFullUpp() {
 
         final int[][] queues = {
