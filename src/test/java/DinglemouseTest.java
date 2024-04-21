@@ -1017,7 +1017,25 @@ public class DinglemouseTest {
 
         final int[] result = Dinglemouse.theLift(queues, 2);
         printHelp(result);
-        assertArrayEquals(new int[]{0, 2, 4, 2 , 4, 2, 0}, result);
+        assertArrayEquals(new int[]{0, 2, 4, 2, 4, 2, 0}, result);
+    }
+
+    @Test
+    void testLiftFullUpAndDown() {
+
+        final int[][] queues = {
+                new int[]{3, 3, 3, 3, 3, 3},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{4, 4, 4, 4, 4, 4},
+                new int[0],
+        };
+
+        final int[] result = Dinglemouse.theLift(queues, 5);
+        printHelp(result);
+        assertArrayEquals(new int[]{0, 3, 5, 4, 0, 3, 5, 4, 0}, result);
     }
 
 
