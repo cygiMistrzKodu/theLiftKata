@@ -48,6 +48,7 @@ public class Dinglemouse {
 
                         List<Integer> peopleOnCurrentFloorGoingUp = new ArrayList<>();
                         AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
+                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoUpDirection.size());
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo > floor.number)
                                 .forEach(peopleGo -> {
@@ -76,16 +77,16 @@ public class Dinglemouse {
                             liftStops.add(peopleEnterTheFloorFromLift);
                         }
 
+                        enterTheLiftToGoUpDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
                     }
                 }
 
 
             }
-            enterTheLiftToGoUpDirection.clear();
 
             List<Integer> enterTheLiftToGoDownDirection = new ArrayList<>();
 
-            for (int i = building.size() - 1; i > 0; i--) {
+            for (int i = building.size() - 1; i >= 0; i--) {
 
                 Floor floor = building.get(i);
 
@@ -100,6 +101,7 @@ public class Dinglemouse {
 
                         List<Integer> peopleOnCurrentFloorGoingDown = new ArrayList<>();
                         AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
+                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoDownDirection.size());
 
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo < floor.number)
@@ -130,12 +132,12 @@ public class Dinglemouse {
                             liftStops.add(peopleEnterTheFloorFromLift);
                         }
 
+                        enterTheLiftToGoDownDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
                     }
                 }
 
 
             }
-            enterTheLiftToGoDownDirection.clear();
         }
 
         if (!liftStops.isEmpty()) {
