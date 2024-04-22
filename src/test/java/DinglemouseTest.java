@@ -1019,23 +1019,21 @@ public class DinglemouseTest {
     }
 
     @Test
-    @Disabled
-        // zajme sie tym na koncu zrobie jezcze reszte co przechodza z codewars i potem tymi 3 co nie przychodza
     void testFireDrill() {
 
         final int[][] queues = {
-                new int[0],            //     0
-                new int[]{0, 0, 0, 0}, // 4     1
-                new int[]{0, 0, 0, 0}, // 0     2
-                new int[]{0, 0, 0, 0}, // 1    3
-                new int[]{0, 0, 0, 0},  //2    4
-                new int[]{0, 0, 0, 0}, //3    5
-                new int[]{0, 0, 0, 0}, //     6
+                new int[0],
+                new int[]{0, 0, 0, 0},
+                new int[]{0, 0, 0, 0},
+                new int[]{0, 0, 0, 0},
+                new int[]{0, 0, 0, 0},
+                new int[]{0, 0, 0, 0},
+                new int[]{0, 0, 0, 0},
         };
 
         final int[] result = Dinglemouse.theLift(queues, 5);
         printHelp(result);
-        assertArrayEquals(new int[]{0, 6, 5, 0, 5, 4, 0, 4, 3, 0, 3, 2, 0, 1, 0}, result);  // chyba zła odpowidze 25 punktów ??
+        assertArrayEquals(new int[]{0, 6, 5, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 4, 3, 2, 1, 0, 3, 2, 1, 0, 1, 0}, result);
     }
 
     @Test
