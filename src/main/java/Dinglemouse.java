@@ -48,7 +48,7 @@ public class Dinglemouse {
 
                         List<Integer> peopleOnCurrentFloorGoingUp = new ArrayList<>();
                         AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
-                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoUpDirection.size());
+                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoUpDirection.size());  // problem jakis z w tedy kiedy pasażerowie wsiadaja do windy i wysiadaja jednocześnie
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo > floor.number)
                                 .forEach(peopleGo -> {
@@ -101,7 +101,7 @@ public class Dinglemouse {
 
                         List<Integer> peopleOnCurrentFloorGoingDown = new ArrayList<>();
                         AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
-                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoDownDirection.size());
+                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoDownDirection.size());   // tu zwiazan z liecznieme
 
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo < floor.number)
