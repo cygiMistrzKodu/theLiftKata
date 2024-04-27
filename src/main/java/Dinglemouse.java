@@ -111,19 +111,16 @@ public class Dinglemouse {
                         }
 
                         List<Integer> peopleOnCurrentFloorGoingDown = new ArrayList<>();
-                        AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
-                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoDownDirection.size());   // tu zwiazan z liecznieme
+                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoDownDirection.size(), 0);
 
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo < floor.number)
+                                .limit(maxPeopleCanEnterTheLift)
                                 .forEach(peopleGo -> {
 
-                                    if (counterMaxPeopleCanEnterTheLift.get() < capacity) {
+                                    enterTheLiftToGoDownDirection.add(peopleGo);
+                                    peopleOnCurrentFloorGoingDown.add(peopleGo);
 
-                                        enterTheLiftToGoDownDirection.add(peopleGo);
-                                        peopleOnCurrentFloorGoingDown.add(peopleGo);
-                                        counterMaxPeopleCanEnterTheLift.getAndIncrement();
-                                    }
                                 });
 
                         peopleOnCurrentFloorGoingDown.forEach(floor.peopleWaitingForLift::remove);
