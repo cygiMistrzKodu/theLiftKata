@@ -47,17 +47,17 @@ public class Dinglemouse {
                         }
 
                         List<Integer> peopleOnCurrentFloorGoingUp = new ArrayList<>();
-                        AtomicInteger counterMaxPeopleCanEnterTheLift = new AtomicInteger();
-                        counterMaxPeopleCanEnterTheLift.set(enterTheLiftToGoUpDirection.size());  // problem jakis z w tedy kiedy pasażerowie wsiadaja do windy i wysiadaja jednocześnie
+
+                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoUpDirection.size(), 0);
+
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo > floor.number)
+                                .limit(maxPeopleCanEnterTheLift)
                                 .forEach(peopleGo -> {
-                                    if (counterMaxPeopleCanEnterTheLift.get() < capacity) {
 
-                                        enterTheLiftToGoUpDirection.add(peopleGo);
-                                        peopleOnCurrentFloorGoingUp.add(peopleGo);
-                                        counterMaxPeopleCanEnterTheLift.getAndIncrement();
-                                    }
+                                    enterTheLiftToGoUpDirection.add(peopleGo);
+                                    peopleOnCurrentFloorGoingUp.add(peopleGo);
+
                                 });
 
 
@@ -78,6 +78,17 @@ public class Dinglemouse {
                         }
 
                         enterTheLiftToGoUpDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
+
+                        Floor floorPeopleOut = building.get(peopleEnterTheFloorFromLift);
+
+                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoUpDirection.size(), 0);
+
+                        List<Integer> peopleEnterTheLiftWhenOtherGoOut = floorPeopleOut.peopleWaitingForLift.stream()
+                                .filter(peopleGo -> peopleGo > floorPeopleOut.number).limit(maxPeopleCanEnterTheLift).toList();
+
+                        enterTheLiftToGoUpDirection.addAll(peopleEnterTheLiftWhenOtherGoOut);
+                        peopleEnterTheLiftWhenOtherGoOut.forEach(floor.peopleWaitingForLift::remove);
+
                     }
                 }
 
