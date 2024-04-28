@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
@@ -141,6 +140,18 @@ public class Dinglemouse {
                         }
 
                         enterTheLiftToGoDownDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
+
+
+                        Floor floorPeopleOut = building.get(peopleEnterTheFloorFromLift);
+
+                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoDownDirection.size(), 0);
+
+                        List<Integer> peopleEnterTheLiftWhenOtherGoOut = floorPeopleOut.peopleWaitingForLift.stream()
+                                .filter(peopleGo -> peopleGo < floorPeopleOut.number).limit(maxPeopleCanEnterTheLift).toList();
+
+                        enterTheLiftToGoDownDirection.addAll(peopleEnterTheLiftWhenOtherGoOut);
+                        peopleEnterTheLiftWhenOtherGoOut.forEach(floor.peopleWaitingForLift::remove);
+
                     }
                 }
 
