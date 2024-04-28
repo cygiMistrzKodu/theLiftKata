@@ -1,5 +1,4 @@
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -1114,12 +1113,12 @@ public class DinglemouseTest {
     @Test
     void tesTMoJ() {
 
-        final int[][] queues = {     // wsiadaie i jednoczesne wysiadanie ?? tu jest chyba problem
-                new int[]{1, 1},     //0
-                new int[]{2, 2},     //1
-                new int[]{1},   //2
-                new int[0],      //3
-                new int[0],      //4
+        final int[][] queues = {
+                new int[]{1, 1},
+                new int[]{2, 2},
+                new int[]{1},
+                new int[0],
+                new int[0],
         };
 
         final int[] result = Dinglemouse.theLift(queues, 2);
@@ -1128,14 +1127,14 @@ public class DinglemouseTest {
     }
 
     @Test
-    void tesTMoJ2() {   // odtworzylem sytuacje kiedy komentuje rozmiar ustawianie rozmiaru liczenia
+    void tesTMoJ2() {
 
-        final int[][] queues = {  // wsiadaie i jednoczesne wysiadanie ?? tu jest chyba problem
-                new int[0],     //0
-                new int[]{3,3},     //1  ( pusto )
-                new int[]{1,1},   //2    pusto
-                new int[]{2,2},      //3  pusto
-                new int[0],      //4
+        final int[][] queues = {
+                new int[0],
+                new int[]{3,3},
+                new int[]{1,1},
+                new int[]{2,2},
+                new int[0],
         };
 
         final int[] result = Dinglemouse.theLift(queues, 1);
