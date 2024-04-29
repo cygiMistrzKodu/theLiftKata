@@ -5,37 +5,24 @@ import java.util.Objects;
 public class Dinglemouse {
     public static int[] theLift(int[][] queues, final int capacity) {
 
-        List<Floor> building = new ArrayList<>();
-
-        for (int floorNumber = 0; floorNumber < queues.length; floorNumber++) {
-
-            Floor floor = new Floor();
-            floor.setNumber(floorNumber);
-
-            for (int peopleOnFloor = 0; peopleOnFloor < queues[floorNumber].length; peopleOnFloor++) {
-
-                floor.addPeopleWaitingForLift(queues[floorNumber][peopleOnFloor]);
-            }
-            building.add(floor);
-
-        }
+        List<Floor> building = changeToBuildingAndFloorsRepresentation(queues);
 
         List<Integer> liftStops = new ArrayList<>();
-        List<Integer> enterTheLiftToGoUpDirection = new ArrayList<>();
+        List<Integer> peopleGoingOnUpperFloors = new ArrayList<>();
 
         liftStops.add(0);
 
         while (isPeopleWaitingOnTheAtLeastOneFloor(building)) {
 
-            for (int i = 0; i < building.size(); i++) {
+            for (int floorNumber = 0; floorNumber < building.size(); floorNumber++) {
 
-                Floor floor = building.get(i);
-
-
-                if (!floor.peopleWaitingForLift.isEmpty()) {
+                Floor floor = building.get(floorNumber);
 
 
-                    if (floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo > floor.number)) {
+                if (isOnFloorPeopleWaiting(floor)) {
+
+
+                    if (isPeopleOnFloorWantingToGoUp(floor)) {
 
                         if (liftStops.isEmpty()) {
                             liftStops.add(floor.getNumber());
@@ -47,46 +34,46 @@ public class Dinglemouse {
 
                         List<Integer> peopleOnCurrentFloorGoingUp = new ArrayList<>();
 
-                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoUpDirection.size(), 0);
+                        int maxPeopleCanEnterTheLift = calculateHowManyPeopleCanEnterTheLift(capacity, peopleGoingOnUpperFloors);
 
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo > floor.number)
                                 .limit(maxPeopleCanEnterTheLift)
-                                .forEach(peopleGo -> {
+                                .forEach(peopleGoingUp -> {
 
-                                    enterTheLiftToGoUpDirection.add(peopleGo);
-                                    peopleOnCurrentFloorGoingUp.add(peopleGo);
+                                    peopleGoingOnUpperFloors.add(peopleGoingUp);
+                                    peopleOnCurrentFloorGoingUp.add(peopleGoingUp);
 
                                 });
 
 
-                        peopleOnCurrentFloorGoingUp.forEach(floor.peopleWaitingForLift::remove);
+                        removePeopleFromCurrentFloorWaitingForLift(peopleOnCurrentFloorGoingUp, floor);
                     }
 
                 }
 
-                if (enterTheLiftToGoUpDirection.contains(i)) {
-                    int peopleIndex = enterTheLiftToGoUpDirection.indexOf(i);
+                if (peopleGoingOnUpperFloors.contains(floorNumber)) {
+                    int peopleIndex = peopleGoingOnUpperFloors.indexOf(floorNumber);
                     if (peopleIndex != -1) {
 
-                        Integer peopleEnterTheFloorFromLift = enterTheLiftToGoUpDirection.get(peopleIndex);
+                        Integer peopleEnterTheFloorFromLift = peopleGoingOnUpperFloors.get(peopleIndex);
                         Integer lastFloorTheLiftStop = liftStops.get(liftStops.size() - 1);
 
                         if (!Objects.equals(peopleEnterTheFloorFromLift, lastFloorTheLiftStop)) {
                             liftStops.add(peopleEnterTheFloorFromLift);
                         }
 
-                        enterTheLiftToGoUpDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
+                        peopleGoingOnUpperFloors.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
 
                         Floor floorPeopleOut = building.get(peopleEnterTheFloorFromLift);
 
-                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoUpDirection.size(), 0);
+                        int maxPeopleCanEnterTheLift = calculateHowManyPeopleCanEnterTheLift(capacity, peopleGoingOnUpperFloors);
 
                         List<Integer> peopleEnterTheLiftWhenOtherGoOut = floorPeopleOut.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo > floorPeopleOut.number).limit(maxPeopleCanEnterTheLift).toList();
 
-                        enterTheLiftToGoUpDirection.addAll(peopleEnterTheLiftWhenOtherGoOut);
-                        peopleEnterTheLiftWhenOtherGoOut.forEach(floor.peopleWaitingForLift::remove);
+                        peopleGoingOnUpperFloors.addAll(peopleEnterTheLiftWhenOtherGoOut);
+                        removePeopleFromCurrentFloorWaitingForLift(peopleEnterTheLiftWhenOtherGoOut, floor);
 
                     }
                 }
@@ -94,63 +81,62 @@ public class Dinglemouse {
 
             }
 
-            List<Integer> enterTheLiftToGoDownDirection = new ArrayList<>();
+            List<Integer> peopleGoingOnLowerFloors = new ArrayList<>();
 
-            for (int i = building.size() - 1; i >= 0; i--) {
+            for (int floorNumber = building.size() - 1; floorNumber >= 0; floorNumber--) {
 
-                Floor floor = building.get(i);
+                Floor floor = building.get(floorNumber);
 
-                if (!floor.peopleWaitingForLift.isEmpty()) {
+                if (isOnFloorPeopleWaiting(floor)) {
 
-
-                    if (floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo < floor.number)) {
+                    if (isPeopleOnFloorWantingToGoDown(floor)) {
 
                         if (!Objects.equals(liftStops.get(liftStops.size() - 1), floor.number)) {
                             liftStops.add(floor.getNumber());
                         }
 
                         List<Integer> peopleOnCurrentFloorGoingDown = new ArrayList<>();
-                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoDownDirection.size(), 0);
+                        int maxPeopleCanEnterTheLift = calculateHowManyPeopleCanEnterTheLift(capacity, peopleGoingOnLowerFloors);
 
                         floor.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo < floor.number)
                                 .limit(maxPeopleCanEnterTheLift)
                                 .forEach(peopleGo -> {
 
-                                    enterTheLiftToGoDownDirection.add(peopleGo);
+                                    peopleGoingOnLowerFloors.add(peopleGo);
                                     peopleOnCurrentFloorGoingDown.add(peopleGo);
 
                                 });
 
-                        peopleOnCurrentFloorGoingDown.forEach(floor.peopleWaitingForLift::remove);
+                        removePeopleFromCurrentFloorWaitingForLift(peopleOnCurrentFloorGoingDown, floor);
                     }
 
 
                 }
 
-                if (enterTheLiftToGoDownDirection.contains(i)) {
-                    int peopleIndex = enterTheLiftToGoDownDirection.indexOf(i);
+                if (peopleGoingOnLowerFloors.contains(floorNumber)) {
+                    int peopleIndex = peopleGoingOnLowerFloors.indexOf(floorNumber);
                     if (peopleIndex != -1) {
 
-                        Integer peopleEnterTheFloorFromLift = enterTheLiftToGoDownDirection.get(peopleIndex);
+                        Integer peopleEnterTheFloorFromLift = peopleGoingOnLowerFloors.get(peopleIndex);
                         Integer lastFloorTheLiftStop = liftStops.get(liftStops.size() - 1);
 
                         if (!Objects.equals(peopleEnterTheFloorFromLift, lastFloorTheLiftStop)) {
                             liftStops.add(peopleEnterTheFloorFromLift);
                         }
 
-                        enterTheLiftToGoDownDirection.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
+                        peopleGoingOnLowerFloors.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
 
 
                         Floor floorPeopleOut = building.get(peopleEnterTheFloorFromLift);
 
-                        int maxPeopleCanEnterTheLift = Math.max(capacity - enterTheLiftToGoDownDirection.size(), 0);
+                        int maxPeopleCanEnterTheLift = calculateHowManyPeopleCanEnterTheLift(capacity, peopleGoingOnLowerFloors);
 
                         List<Integer> peopleEnterTheLiftWhenOtherGoOut = floorPeopleOut.peopleWaitingForLift.stream()
                                 .filter(peopleGo -> peopleGo < floorPeopleOut.number).limit(maxPeopleCanEnterTheLift).toList();
 
-                        enterTheLiftToGoDownDirection.addAll(peopleEnterTheLiftWhenOtherGoOut);
-                        peopleEnterTheLiftWhenOtherGoOut.forEach(floor.peopleWaitingForLift::remove);
+                        peopleGoingOnLowerFloors.addAll(peopleEnterTheLiftWhenOtherGoOut);
+                        removePeopleFromCurrentFloorWaitingForLift(peopleEnterTheLiftWhenOtherGoOut, floor);
 
                     }
                 }
@@ -172,6 +158,44 @@ public class Dinglemouse {
         return liftStops.stream().mapToInt(i -> i).toArray();
 
 
+    }
+
+    private static int calculateHowManyPeopleCanEnterTheLift(int capacity, List<Integer> peopleInLift) {
+        return Math.max(capacity - peopleInLift.size(), 0);
+    }
+
+    private static boolean isOnFloorPeopleWaiting(Floor floor) {
+        return !floor.peopleWaitingForLift.isEmpty();
+    }
+
+    private static boolean isPeopleOnFloorWantingToGoDown(Floor floor) {
+        return floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo < floor.number);
+    }
+
+    private static void removePeopleFromCurrentFloorWaitingForLift(List<Integer> peopleOnCurrentFloor, Floor floor) {
+        peopleOnCurrentFloor.forEach(floor.peopleWaitingForLift::remove);
+    }
+
+    private static boolean isPeopleOnFloorWantingToGoUp(Floor floor) {
+        return floor.peopleWaitingForLift.stream().anyMatch(peopleGo -> peopleGo > floor.number);
+    }
+
+    private static List<Floor> changeToBuildingAndFloorsRepresentation(int[][] queues) {
+        List<Floor> building = new ArrayList<>();
+
+        for (int floorNumber = 0; floorNumber < queues.length; floorNumber++) {
+
+            Floor floor = new Floor();
+            floor.setNumber(floorNumber);
+
+            for (int peopleOnFloor = 0; peopleOnFloor < queues[floorNumber].length; peopleOnFloor++) {
+
+                floor.addPeopleWaitingForLift(queues[floorNumber][peopleOnFloor]);
+            }
+            building.add(floor);
+
+        }
+        return building;
     }
 
     private static class Floor {

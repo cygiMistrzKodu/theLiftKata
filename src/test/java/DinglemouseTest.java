@@ -1131,17 +1131,16 @@ public class DinglemouseTest {
 
         final int[][] queues = {
                 new int[0],
-                new int[]{3,3},
-                new int[]{1,1},
-                new int[]{2,2},
+                new int[]{3, 3},
+                new int[]{1, 1},
+                new int[]{2, 2},
                 new int[0],
         };
 
         final int[] result = Dinglemouse.theLift(queues, 1);
         printHelp(result);
-        assertArrayEquals(new int[]{0, 1, 3, 2 ,1 , 3 , 2 , 1, 0}, result);
+        assertArrayEquals(new int[]{0, 1, 3, 2, 1, 3, 2, 1, 0}, result);
     }
-
 
 
 }
