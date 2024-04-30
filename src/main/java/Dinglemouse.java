@@ -28,7 +28,7 @@ public class Dinglemouse {
                             liftStops.add(floor.getNumber());
                         }
 
-                        if (!Objects.equals(liftStops.get(liftStops.size() - 1), floor.number)) {
+                        if (isLastLiftStopDifferentThanCurrentFloorNumber(liftStops, floor)) {
                             liftStops.add(floor.getNumber());
                         }
 
@@ -65,15 +65,14 @@ public class Dinglemouse {
 
                         peopleGoingOnUpperFloors.removeIf(peopleGo -> Objects.equals(peopleGo, peopleEnterTheFloorFromLift));
 
-                        Floor floorPeopleOut = building.get(peopleEnterTheFloorFromLift);
-
                         int maxPeopleCanEnterTheLift = calculateHowManyPeopleCanEnterTheLift(capacity, peopleGoingOnUpperFloors);
 
-                        List<Integer> peopleEnterTheLiftWhenOtherGoOut = floorPeopleOut.peopleWaitingForLift.stream()
-                                .filter(peopleGo -> peopleGo > floorPeopleOut.number).limit(maxPeopleCanEnterTheLift).toList();
+                        Floor floorPreviousPeopleGoOutAndAtTheSameTimeEnterNewOnes = building.get(peopleEnterTheFloorFromLift);
+                        List<Integer> peoplesOnTheNextFloorWantToGoUp = floorPreviousPeopleGoOutAndAtTheSameTimeEnterNewOnes.peopleWaitingForLift.stream()
+                                .filter(peopleGo -> peopleGo > floorPreviousPeopleGoOutAndAtTheSameTimeEnterNewOnes.number).limit(maxPeopleCanEnterTheLift).toList();
 
-                        peopleGoingOnUpperFloors.addAll(peopleEnterTheLiftWhenOtherGoOut);
-                        removePeopleFromCurrentFloorWaitingForLift(peopleEnterTheLiftWhenOtherGoOut, floor);
+                        peopleGoingOnUpperFloors.addAll(peoplesOnTheNextFloorWantToGoUp);
+                        removePeopleFromCurrentFloorWaitingForLift(peoplesOnTheNextFloorWantToGoUp, floor);
 
                     }
                 }
@@ -91,7 +90,7 @@ public class Dinglemouse {
 
                     if (isPeopleOnFloorWantingToGoDown(floor)) {
 
-                        if (!Objects.equals(liftStops.get(liftStops.size() - 1), floor.number)) {
+                        if (isLastLiftStopDifferentThanCurrentFloorNumber(liftStops, floor)) {
                             liftStops.add(floor.getNumber());
                         }
 
@@ -158,6 +157,10 @@ public class Dinglemouse {
         return liftStops.stream().mapToInt(i -> i).toArray();
 
 
+    }
+
+    private static boolean isLastLiftStopDifferentThanCurrentFloorNumber(List<Integer> liftStops, Floor floor) {
+        return !Objects.equals(liftStops.get(liftStops.size() - 1), floor.number);
     }
 
     private static int calculateHowManyPeopleCanEnterTheLift(int capacity, List<Integer> peopleInLift) {
